@@ -19,9 +19,6 @@
         return res
     };
 
-    
-    
-
     // let names = [];
     // for(const p of products){
     //     names.push(p.name);
@@ -58,8 +55,10 @@
         yield 4;
     }
     console.log(map(a => a * a, gen()));
+
+    let m = new Map();
+    m.set('a', 10);
+    m.set('b', 20);
+    // const it = m[Symbol.iterator]();
+    console.log(new Map(map(([k,a]) => [k, a * 2], m)));
 </script>
-
-# filter
-
-<script></script>
