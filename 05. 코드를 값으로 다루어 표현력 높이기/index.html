@@ -1,0 +1,53 @@
+<script>
+    const map = (f, iter) => {
+        let res = [];
+        for(const a of iter){
+            res.push(f(a))
+        }
+        return res
+    }
+    console.log(map(a => a * a, [1,2,3,4,5]))
+
+    const filter = (f, iter) => {
+        let res = [];
+        for(const a of iter){
+            if(f(a)) res.push(a)
+        }
+        return res
+    }
+    console.log(filter(a => a > 2, [1,2,3,4]))
+
+    const reduce = (f, acc, iter) => {
+        if(!iter) {
+            iter = acc[Symbol.iterator]();
+            acc = iter.next().value;
+        }
+        for(const a of iter){
+            acc = f(acc, a)
+        }
+        return acc
+    }
+    const add = (a, b) => a + b;
+    console.log(reduce(add, [1,2,3,4,5]))
+</script>
+
+# 코드를 값으로 다루어 표현력 높이기
+
+<script>
+    const go = (...args) => {
+        reduce((a,f) => f(a), args
+    )};
+
+    console.log(
+        go(
+            0,
+            a => a + 1,
+            a => a + 10,
+            a => a + 100,
+            console.log
+        )
+    )
+</script>
+
+
+
