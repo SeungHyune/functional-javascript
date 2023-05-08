@@ -43,6 +43,14 @@
         console.log
     )
 
+    go(
+        products,
+        filter(p => p.price > 20000),
+        map(p => p.price),
+        reduce((a,b) => a + b),
+        console.log
+    )
+
     // console.clear();
 </script>
 
@@ -57,4 +65,32 @@
 
     const mult3 = mult(3);
     console.log(mult3(5));
+    
+    console.clear();
+</script>
+
+# 함수 조합으로 함수 만들기
+
+<script>
+    const total_prices = pipe(
+        map(p => p.price),
+        reduce((a,b) => a + b)
+    );
+
+    const base_total_price = predi => pipe(
+        filter(predi),
+        total_prices,
+    )
+
+    go(
+        products,
+        base_total_price(p => p.price < 20000),
+        console.log
+    )
+
+    go(
+        products,
+        base_total_price(p => p.price >= 20000),
+        console.log
+    )
 </script>
