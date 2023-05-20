@@ -28,7 +28,7 @@
         }
     }
     const it2 = L.filter(n => n % 2 === 0, [1,2,3,4,5,6]);
-    console.log([...it2]);
+    // console.log([...it2]);
 </script>
 
 ### range, map, filter, take, reduce 중첩 사용
@@ -92,7 +92,7 @@
         return acc;
     });
 
-    console.time('')
+    // console.time('')
     go(
         range(10000),
         map(n => n + 10),
@@ -100,7 +100,7 @@
         take(2),
         console.log
     )
-    console.timeEnd('')
+    // console.timeEnd('')
     
     
 </script>
@@ -135,16 +135,14 @@
         }
     });
 
-    console.time('L')
+    // console.time('L')
     go(L.range(10000),
         L.map(n => n + 10),
         L.filter(n => n % 2),
         take(2),
         console.log
     )
-    console.timeEnd('L');
-
-    console.clear();
+    // console.timeEnd('L');
 </script>
 
 ## map, filter 계열의 함수들이 가지는 결합 법칙
@@ -184,10 +182,4 @@
      );
 
      console.log(queryStr({limit : 10, offset : 10, type : 'notice'}));
-</script>
-
-## take, find
-
-<script>
-
 </script>
