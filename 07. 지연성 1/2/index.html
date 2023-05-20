@@ -1,4 +1,4 @@
-<script src="../fx.js"></script>
+<script src="./lib/fx.js"></script>
 
 ## 이터러블 중심 프로그래밍에서의 지연 평가 (Lazy Evaluation)
 - 제때 계산법
@@ -92,7 +92,7 @@
         return acc;
     });
 
-    // console.time('')
+    console.time('')
     go(
         range(10000),
         map(n => n + 10),
@@ -100,7 +100,7 @@
         take(2),
         console.log
     )
-    // console.timeEnd('')
+    console.timeEnd('')
     
     
 </script>
@@ -135,14 +135,16 @@
         }
     });
 
-    // console.time('L')
+    console.time('L')
     go(L.range(10000),
         L.map(n => n + 10),
         L.filter(n => n % 2),
         take(2),
         console.log
     )
-    // console.timeEnd('L');
+    console.timeEnd('L');
+
+    console.clear();
 </script>
 
 ## map, filter 계열의 함수들이 가지는 결합 법칙
@@ -181,5 +183,30 @@
         join('&')
      );
 
-     console.log(queryStr({limit : 10, offset : 10, type : 'notice'}));
+    //  console.log(queryStr({limit : 10, offset : 10, type : 'notice'}));
+</script>
+
+## take, find
+
+<script>
+    const users = [
+        {age : 20},
+        {age : 27},
+        {age : 32},
+        {age : 31},
+        {age : 25},
+        {age : 30},
+    ]
+    const find = curry((f, iter) => go(
+        iter,
+        L.filter(f),
+        take(1),
+        ([a]) => a));
+
+    console.log(find(n => n.age > 30, users));
+
+    go(users,
+        L.map(n => n.age),
+        find(n => n > 30),
+        console.log);
 </script>
