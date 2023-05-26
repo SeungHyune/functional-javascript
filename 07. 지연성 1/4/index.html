@@ -8,22 +8,54 @@
    L.flatten = function *(iter){
       for(const a of iter){
          if(isIterable(a)){
-            for(const b of a) yield b;
+            //for(const b of a) yield b;
+            yield *a;
          } else {
             yield a;
          }
       }
    }
 
-   let it = L.flatten([[1,2,3],4,5,6]);
+   var it = L.flatten([[1,2,3],4,5,6]);
    console.log(it.next());
    console.log(it.next());
    console.log(it.next());
    console.log(it.next());
    console.log(it.next());
    console.log(it.next());
-   console.log(take(6, L.flatten([[1,2],3,4,[5,6,7],8])))
+   console.log(take(6, L.flatten([[1,2],3,4,[5,6,7],8])));
 
    const flatten = pipe(L.flatten, takeAll);
-   console.log(flatten([[1,2,3],4,5,6]))
+   console.log(flatten([[1,2,3],4,5,6]));
+
+   L.deepFlat = function *f(iter){
+      for(const a of iter){
+         if(isIterable(a)) yield *f(a);
+         else yield a;
+      }
+   };
+   console.log([...L.deepFlat([1, [2, [3, 4], [5]]])]);
+   console.clear();
+</script>
+
+## L.flatMap
+
+<script>
+   console.log([[1,2],[3,4],[5,6,7]].flatMap(a => a));
+   console.log([[1,2],[3,4],[5,6,7]].flatMap(a => a.map(a => a * a)));
+   console.log(flatten([[1,2],[3,4],[5,6,7]].map(a => a.map(a => a * a))));
+
+   L.flatMap = curry(pipe(L.map, L.flatten));
+   const flatMap = curry(pipe(L.map, L.flatten))
+
+   var it = L.flatMap(map(a => a * a), [[1,2], [3,4], [5,6,7]]);
+   var it = L.flatMap(a => a, [[1,2], [3,4], [5,6,7]]);
+   // console.log([...it]);
+   console.log(it.next());
+   console.log(it.next());
+   console.log(it.next());
+   console.log(it.next());
+   console.log(it.next());
+   console.log(it.next());
+   console.log(it.next());
 </script>
