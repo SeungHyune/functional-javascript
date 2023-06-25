@@ -36,8 +36,11 @@ const take = curry((l, iter) => {
     let cur;
     while (!(cur = iter.next()).done) {
       const a = cur.value;
-      if (a instanceof Promise) return a.then(
-        a => (res.push(a), res).length === l ? res : recur());
+      if (a instanceof Promise) {
+        return a
+        .then(a => (res.push(a), res).length === l ? res : recur())
+        .catch(e => e == nop ? recur() : Promise.reject(e));
+      }
       res.push(a);
       if (res.length == l) return res;
     }
@@ -60,9 +63,13 @@ L.map = curry(function* (f, iter) {
   }
 });
 
+const nop = Symbol('nop');
+
 L.filter = curry(function* (f, iter) {
   for (const a of iter) {
-    if (f(a)) yield a;
+    const b = go1(a, f);
+    if (b instanceof Promise) yield b.then(b => b ? a : Promise.reject(nop));
+    else if (b) yield a;
   }
 });
 
