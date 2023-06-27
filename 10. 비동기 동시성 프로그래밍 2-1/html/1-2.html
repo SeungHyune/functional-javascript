@@ -1,0 +1,23 @@
+<script src="../lib/fx.js"></script>
+
+## 지연된 함수열을 병렬적으로 평가하기 - C.reduce, C.take
+
+<script>
+    const C  = {};
+    C.reduce = curry((f, acc, iter) => iter ?
+        reduce(f, acc, [...iter]) :
+        reduce(f, [...acc]));
+
+    const delay1000 = a => new Promise(resolve => {
+        console.log('hi~');
+        setTimeout(() => resolve(a), 1000);
+    });
+
+    console.time('');
+    go([1,2,3,4,5],
+        L.map(a => delay1000(a * a)),
+        L.filter(a => a % 2),
+        C.reduce(add),
+        log,
+        _ => console.timeEnd(''));
+</script>
