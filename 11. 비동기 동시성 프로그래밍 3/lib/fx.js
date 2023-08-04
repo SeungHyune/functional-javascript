@@ -120,3 +120,23 @@ const range = l => {
   }
   return res;
 };
+
+const C = {};
+
+function noop() {
+}
+
+const catchNoop = ([...arr]) =>
+  (arr.forEach(a => a instanceof Promise ? a.catch(noop) : a), arr);
+
+C.reduce = curry((f, acc, iter) => iter ?
+  reduce(f, acc, catchNoop(iter)) :
+  reduce(f, catchNoop(acc)));
+
+C.take = curry((l, iter) => take(l, catchNoop(iter)));
+
+C.takeAll = C.take(Infinity);
+
+C.map = curry(pipe(L.map, C.takeAll));
+
+C.filter = curry(pipe(L.filter, C.takeAll));
