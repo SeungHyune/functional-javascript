@@ -9,9 +9,9 @@
 
 <script>
     const a = 10;
-    const add10 = a => a + 10;
-    const r = add10(a);
-    console.log(r);
+    const add5 = a => a + 5;
+    const r = add5(a);
+    console.log(r); // 15
 </script>
 
 # 일급 함수
@@ -19,14 +19,14 @@
 - 조합성과 추상화의 도구
 
 <script>
-    const add5 = a => a + 5;
-    console.log(add5);
-    console.log(add5(5));
+    const add10 = a => a + 10;
+    console.log(add10); // a => a + 10
+    console.log(add10(5)); // 15
 
     const f1 = () => () => 1;
-    console.log(f1());
+    console.log(f1()); // () => 1
 
     const f2 = f1();
-    console.log(f2);
-    console.log(f2());
+    console.log(f2); // () => 1
+    console.log(f2()); // 1
 </script>
