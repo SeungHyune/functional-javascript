@@ -1,3 +1,5 @@
+let log = console.log
+
 // curry
 const curry = f => (a, ..._) => _.length ? f(a, ..._) : (..._) => f(a, ..._);
 
@@ -31,3 +33,6 @@ const reduce = curry((f, acc, iter) => {
     }
     return acc
 });
+
+// add
+const add = (a, b) => a + b;
