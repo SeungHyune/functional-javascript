@@ -11,8 +11,8 @@
         while(++i < l){
             res.push(i)
         }
-        return res
-    }
+        return res;
+    };
 
     console.log(range(5));
     // [0,1,2,3,4]
@@ -22,8 +22,8 @@
     console.clear();
 
     var list = range(4);
-    console.log(list)
-    console.log(reduce(add, list))
+    console.log(list);
+    console.log(reduce(add, list));
 </script>
 
 ## 느긋한 L.range
@@ -33,12 +33,12 @@
     L.range = function* (l){
         let i = -1;
         while(++i < l){
-            yield i
+            yield i;
         }
-    }
-    var list = L.range(4)
-    console.log(list)
-    console.log(reduce(add, list))
+    };
+    var list = L.range(4);
+    console.log(list);
+    console.log(reduce(add, list));
 </script>
 
 <script>
@@ -70,7 +70,7 @@
         take(5),
         reduce(add),
         console.log
-    )
+    );
     console.timeEnd('');
     console.time('');
     go(
@@ -78,6 +78,6 @@
         take(10),
         reduce(add),
         console.log
-    )
+    );
     console.timeEnd('');
 </script>
